@@ -13,7 +13,7 @@ function AdminDashboard() {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/orders/all-orders"
+        "https://zoological-essence-production.up.railway.app/api/orders/all-orders"
       );
 
       setOrders(response.data);
@@ -25,7 +25,7 @@ function AdminDashboard() {
   const updateStatus = async (id, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/update-status/${id}`,
+        `https://zoological-essence-production.up.railway.app/api/orders/update-status/${id}`,
         { status }
       );
 
@@ -40,7 +40,7 @@ function AdminDashboard() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/orders/delete-order/${id}`
+        `https://zoological-essence-production.up.railway.app/api/orders/delete-order/${id}`
       );
 
       alert("Order Deleted Successfully");

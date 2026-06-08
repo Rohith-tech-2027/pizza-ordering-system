@@ -20,7 +20,7 @@ function PizzaBuilder() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/orders/place-order",
+        "https://zoological-essence-production.up.railway.app/api/orders/place-order",
         {
           customerName: "Rohith",
           base,
