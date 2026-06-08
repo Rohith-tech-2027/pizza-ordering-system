@@ -9,26 +9,40 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
-app.use(cors());
+// CORS Configuration
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://pizza-ordering-system-lrisbnhwj-rohith-s-projects13.vercel.app",
+    ],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
+// Routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", loginRoutes);
 app.use("/api/orders", orderRoutes);
 
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected");
+    console.log("✅ MongoDB Connected Successfully");
   })
-  .catch((err) => {
-    console.log("❌ MongoDB Error:", err);
+  .catch((error) => {
+    console.log("❌ MongoDB Connection Error:", error);
   });
 
+// Test Route
 app.get("/", (req, res) => {
   res.send("🍕 Pizza App Backend Running Successfully");
 });
 
+// Start Server
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
