@@ -9,8 +9,14 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
-// Allow requests from all origins
-app.use(cors());
+// CORS Configuration
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Middleware
 app.use(express.json());
@@ -19,6 +25,11 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/auth", loginRoutes);
 app.use("/api/orders", orderRoutes);
+
+// Test Route
+app.get("/", (req, res) => {
+  res.send("🍕 Pizza App Backend Running Successfully");
+});
 
 // MongoDB Connection
 mongoose
@@ -29,11 +40,6 @@ mongoose
   .catch((error) => {
     console.log("❌ MongoDB Connection Error:", error);
   });
-
-// Test Route
-app.get("/", (req, res) => {
-  res.send("🍕 Pizza App Backend Running Successfully");
-});
 
 // Start Server
 const PORT = process.env.PORT || 5000;
