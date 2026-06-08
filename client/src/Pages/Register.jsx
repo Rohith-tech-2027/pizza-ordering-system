@@ -1,7 +1,112 @@
+import { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "https://zoological-essence-production.up.railway.app/api/users/register",
+        {
+          name,
+          email,
+          password,
+        }
+      );
+
+      alert(response.data.message);
+      navigate("/");
+    } catch (error) {
+      alert(error.response?.data?.message || "Registration Failed");
+    }
+  };
+
   return (
-    <div>
-      <h1>Register Page</h1>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#08122e",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <form
+        onSubmit={handleRegister}
+        style={{
+          background: "white",
+          padding: "30px",
+          borderRadius: "10px",
+          width: "350px",
+        }}
+      >
+        <h1 style={{ textAlign: "center" }}>🍕 Register</h1>
+
+        <input
+          type="text"
+          placeholder="Enter Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          style={{
+            width: "100%",
+            padding: "10px",
+            margin: "10px 0",
+          }}
+        />
+
+        <input
+          type="email"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          style={{
+            width: "100%",
+            padding: "10px",
+            margin: "10px 0",
+          }}
+        />
+
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          style={{
+            width: "100%",
+            padding: "10px",
+            margin: "10px 0",
+          }}
+        />
+
+        <button
+          type="submit"
+          style={{
+            width: "100%",
+            padding: "10px",
+            background: "#2563eb",
+            color: "white",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Register
+        </button>
+
+        <p style={{ textAlign: "center", marginTop: "15px" }}>
+          Already have an account? <Link to="/">Login</Link>
+        </p>
+      </form>
     </div>
   );
 }
