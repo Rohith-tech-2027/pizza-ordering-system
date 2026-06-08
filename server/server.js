@@ -9,17 +9,10 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
-// CORS Configuration
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://pizza-ordering-system-lrisbnhwj-rohith-s-projects13.vercel.app",
-    ],
-    credentials: true,
-  })
-);
+// Allow requests from all origins
+app.use(cors());
 
+// Middleware
 app.use(express.json());
 
 // Routes
