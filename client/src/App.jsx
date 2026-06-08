@@ -1,16 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Dashboard from "./Pages/Dashboard";
 import PizzaBuilder from "./Pages/PizzaBuilder";
 import AdminDashboard from "./Pages/AdminDashboard";
-
-function Login() {
-  return (
-    <div>
-      <h1>Login Page</h1>
-    </div>
-  );
-}
 
 function App() {
   return (
