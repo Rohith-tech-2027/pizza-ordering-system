@@ -34,7 +34,7 @@ app.use("/api/orders", orderRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
-  res.send("🍕 Pizza App Backend Running Successfully");
+  res.send("🍕 Backend Working - Test");
 });
 
 // MongoDB Connection
