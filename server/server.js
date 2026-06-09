@@ -9,7 +9,7 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
-// CORS Configuration
+// CORS
 app.use(
   cors({
     origin: "*",
@@ -20,6 +20,12 @@ app.use(
 
 // Middleware
 app.use(express.json());
+
+// Request Logger
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -38,8 +44,25 @@ mongoose
     console.log("✅ MongoDB Connected Successfully");
   })
   .catch((error) => {
-    console.log("❌ MongoDB Connection Error:", error);
+    console.error("❌ MongoDB Connection Error:", error);
   });
+
+// Error Handler
+app.use((err, req, res, next) => {
+  console.error("ERROR:", err);
+  res.status(500).json({
+    message: err.message,
+  });
+});
+
+// Debugging
+process.on("uncaughtException", (err) => {
+  console.error("UNCAUGHT EXCEPTION:", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("UNHANDLED REJECTION:", err);
+});
 
 // Start Server
 const PORT = process.env.PORT || 5000;
